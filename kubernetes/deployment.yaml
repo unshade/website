@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: website
-          image: ghcr.io/unshade/website:744b83217d2e4bacaba3de1567fddc3d12df3dbf
+          image: ghcr.io/unshade/website:latest
           ports:
             - containerPort: 8080
               protocol: TCP
