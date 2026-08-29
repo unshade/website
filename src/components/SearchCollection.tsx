@@ -5,10 +5,16 @@ import ArrowCard from "@components/ArrowCard"
 import { cn } from "@lib/utils"
 import SearchBar from "@components/SearchBar"
 
+type Entry =
+  | CollectionEntry<"blog">
+  | CollectionEntry<"projects">
+  | CollectionEntry<"music">
+  | CollectionEntry<"hiking">
+
 type Props = {
   entry_name: string
   tags: string[]
-  data: CollectionEntry<"blog">[] | CollectionEntry<'projects'>[]
+  data: Entry[]
 }
 
 export default function SearchCollection({ entry_name, data, tags }: Props) {
@@ -77,7 +83,7 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
           {/* Search Bar */}
           <SearchBar onSearchInput={onSearchInput} query={query} setQuery={setQuery} placeholderText={`Search ${entry_name}`} />
           {/* Tag Filters */}
-          <div class="relative flex flex-row justify-between w-full"><p class="text-sm font-semibold uppercase my-4 text-black dark:text-white">Tags</p>
+          <div class="relative flex flex-row justify-between w-full"><p class="text-sm font-mono font-semibold uppercase my-4 text-black dark:text-white">Tags</p>
             {filter().size > 0 && (
               <button
                 onClick={clearFilters}
@@ -136,11 +142,11 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
         <div class="flex flex-col">
           {/* Info Bar */}
           <div class='flex justify-between flex-row mb-2'>
-            <div class="text-sm uppercase">
+            <div class="text-sm uppercase font-mono">
               SHOWING {collection().length} OF {data.length} {entry_name}
             </div>
             <button onClick={toggleDescending} class='flex flex-row gap-1 stroke-neutral-400 dark:stroke-neutral-500 hover:stroke-neutral-600 hover:dark:stroke-neutral-300 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 hover:dark:text-neutral-300'>
-              <div class="text-sm uppercase">
+              <div class="text-sm uppercase font-mono">
                 {descending() ? "DESCENDING" : "ASCENDING"}
               </div>
               <svg

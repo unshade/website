@@ -1,0 +1,35 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
+import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
+
+// Create the static hiking pages
+export async function getStaticPaths() {
+	const trails = await getCollection("hiking")
+	return trails.map((trail) => ({
+		params: { slug: trail.slug },
+		props: trail,
+	}))
+}
+
+// Get the requested trail
+type Props = CollectionEntry<"hiking">
+const trail = Astro.props
+const { title, summary } = trail.data
+---
+
+<PageLayout title={title} description={summary}>
+  <TopLayout>
+    <div class="animate">
+      <ArticleTopLayout entry={trail} />
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <ArticleBottomLayout entry={trail} />
+    </div>
+  </BottomLayout>
+</PageLayout>

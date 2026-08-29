@@ -3,7 +3,11 @@ import type { CollectionEntry } from "astro:content"
 import { formatDate, readingTime } from "@lib/utils"
 
 type Props = {
-  entry: CollectionEntry<"projects"> | CollectionEntry<"blog">
+  entry:
+    | CollectionEntry<"projects">
+    | CollectionEntry<"blog">
+    | CollectionEntry<"music">
+    | CollectionEntry<"hiking">
 }
 
 const { entry } = Astro.props
@@ -12,6 +16,9 @@ const { title, summary, date } = data
 
 const demoUrl = collection === "projects" ? data.demoUrl : null
 const repoUrl = collection === "projects" ? data.repoUrl : null
+
+const music = collection === "music" ? data : null
+const hike = collection === "hiking" ? data : null
 ---
 
 <div>
@@ -21,32 +28,57 @@ const repoUrl = collection === "projects" ? data.repoUrl : null
       <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
     </svg>
     <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-      Back to {collection}
+      Back to {collection === "hiking" ? "trails" : collection}
     </div>
   </a>
-  <div class="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
+  <div class="flex flex-wrap text-sm uppercase font-mono mt-12 gap-3 opacity-75">
     <div class="flex items-center gap-2">
       <svg class="size-5 stroke-current">
         <use href="/ui.svg#calendar"/>
       </svg>
       {formatDate(date)}
     </div>
-    <div class="flex items-center gap-2">
-      <svg class="size-5 stroke-current">
-        <use href="/ui.svg#book-open"/>
-      </svg>
-      {readingTime(body)}
-    </div>
+    {!music && !hike &&
+      <div class="flex items-center gap-2">
+        <svg class="size-5 stroke-current">
+          <use href="/ui.svg#book-open"/>
+        </svg>
+        {readingTime(body)}
+      </div>
+    }
+    {music?.bpm &&
+      <div class="chip !text-sm !py-0 !px-0 !border-0 text-ice-600 dark:text-ice-300">{music.bpm} BPM</div>
+    }
+    {music?.key &&
+      <div class="chip !text-sm !py-0 !px-0 !border-0 text-ice-600 dark:text-ice-300">{music.key}</div>
+    }
+    {music?.tool &&
+      <div class="chip !text-sm !py-0 !px-0 !border-0 text-black/60 dark:text-white/60">{music.tool}</div>
+    }
+    {hike?.location &&
+      <div class="flex items-center gap-2 text-moss-600 dark:text-moss-400">
+        {hike.location}
+      </div>
+    }
+    {hike?.elevation &&
+      <div class="text-moss-600 dark:text-moss-400">▲ {hike.elevation}</div>
+    }
+    {hike?.distance &&
+      <div class="text-black/60 dark:text-white/60">{hike.distance}</div>
+    }
+    {hike?.duration &&
+      <div class="text-black/60 dark:text-white/60">{hike.duration}</div>
+    }
   </div>
-  <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+  <h1 class="text-3xl font-mono font-semibold text-black dark:text-white mt-2">
     {title}
   </h1>
   <div class="mt-1">
     {summary}
   </div>
-  {(demoUrl || repoUrl) && 
+  {(demoUrl || repoUrl || music?.embedUrl || music?.listenUrl || hike?.videoUrl) &&
   <div class="mt-4 flex flex-wrap gap-2">
-    {demoUrl && 
+    {demoUrl &&
       <a href={demoUrl} target="_blank" class="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend">
         <svg class="size-4">
           <use href="/ui.svg#globe" class="fill-current group-hover:fill-black group-hover:dark:fill-white blend"/>
@@ -56,7 +88,7 @@ const repoUrl = collection === "projects" ? data.repoUrl : null
         </span>
       </a>
     }
-    {repoUrl && 
+    {repoUrl &&
       <a href={repoUrl} target="_blank" class="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend">
         <svg class="size-4">
           <use href="/ui.svg#link" class="fill-current group-hover:fill-black group-hover:dark:fill-white blend"/>
@@ -66,6 +98,26 @@ const repoUrl = collection === "projects" ? data.repoUrl : null
         </span>
       </a>
     }
-  </div> 
+    {(music?.embedUrl || music?.listenUrl) &&
+      <a href={music.embedUrl || music.listenUrl} target="_blank" class="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-ice-600/40 dark:border-ice-300/40 hover:bg-ice-500/10 blend">
+        <svg class="size-4">
+          <use href="/ui.svg#globe" class="fill-current group-hover:fill-black group-hover:dark:fill-white blend"/>
+        </svg>
+        <span class="text-ice-600 dark:text-ice-300">
+          Listen to the track
+        </span>
+      </a>
+    }
+    {hike?.videoUrl &&
+      <a href={hike.videoUrl} target="_blank" class="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-moss-600/40 dark:border-moss-400/40 hover:bg-moss-500/10 blend">
+        <svg class="size-4">
+          <use href="/ui.svg#globe" class="fill-current group-hover:fill-black group-hover:dark:fill-white blend"/>
+        </svg>
+        <span class="text-moss-600 dark:text-moss-400">
+          Watch the video
+        </span>
+      </a>
+    }
+  </div>
   }
 </div>

@@ -7,7 +7,34 @@ on:
     branches: [ "main" ]
 
 jobs:
+  tag:
+    # Only cut a new semantic version tag for commits landing on main -
+    # pull requests just get a build check, no version bump.
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+
   build:
+    needs: [ tag ]
+    if: always() && needs.tag.result != 'failure'
     runs-on: ubuntu-latest
 
     permissions:
@@ -18,17 +45,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Set image name and version tag
+        id: vars
+        run: |
+          echo "image=ghcr.io/${{ github.repository_owner }}/$(basename ${{ github.repository }})" >> "$GITHUB_OUTPUT"
+          echo "version=${{ needs.tag.outputs.new_tag || format('pr-{0}', github.event.pull_request.number) }}" >> "$GITHUB_OUTPUT"
 
       - name: Build Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$(basename ${{ github.repository }})
-          docker build . --file Dockerfile --tag $IMAGE_NAME:latest
-          docker tag $IMAGE_NAME:latest $IMAGE_NAME:${{ github.sha }}
+          docker build . --file Dockerfile \
+            --tag ${{ steps.vars.outputs.image }}:${{ steps.vars.outputs.version }} \
+            --tag ${{ steps.vars.outputs.image }}:${{ github.sha }}
+
+      - name: Tag latest
+        if: github.event_name == 'push'
+        run: docker tag ${{ steps.vars.outputs.image }}:${{ github.sha }} ${{ steps.vars.outputs.image }}:latest
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push Docker image
+        if: github.event_name == 'push'
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$(basename ${{ github.repository }})
-          docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:${{ github.sha }}
+          docker push ${{ steps.vars.outputs.image }}:${{ steps.vars.outputs.version }}
+          docker push ${{ steps.vars.outputs.image }}:${{ github.sha }}
+          docker push ${{ steps.vars.outputs.image }}:latest

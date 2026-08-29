@@ -25,19 +25,17 @@ import Container from "@components/Container.astro"
       <Container size="md">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="flex flex-col items-center sm:items-start">
-            <a href="/" class="flex gap-1 w-fit font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-              <!-- <svg class="size-6 fill-current">
-                <use href="/brand.svg#brand"/>
-              </svg> -->
-              {SITE.TITLE}
+            <a href="/" class="flex gap-0.5 w-fit font-mono font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+              <span class="text-moss-600 dark:text-moss-400">~/</span>
+              {SITE.TITLE.split(" ")[0].toLowerCase()}
             </a>
           </div>
-          <div class="flex gap-2 justify-center sm:justify-end items-center">
+          <div class="flex gap-2 justify-center sm:justify-end items-center font-mono text-sm">
             <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-moss-300 dark:bg-moss-500"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-moss-500 dark:bg-moss-400"></span>
             </span>
-            All systems normal
+            all systems normal
           </div>
         </div>
       </Container>
@@ -55,8 +53,8 @@ import Container from "@components/Container.astro"
                 Privacy
               </a>
             </div>
-            <div class="text-sm mt-2">
-              &copy; 2024 | All rights reserved
+            <div class="text-sm mt-2 font-mono">
+              &copy; 2026 | All rights reserved
             </div>
           </div>
   

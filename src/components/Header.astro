@@ -9,23 +9,21 @@ import Container from "@components/Container.astro"
 <header id="header" class="fixed top-0 w-full h-16 z-50 ">
   <Container size="md">
     <div class="relative h-full w-full">
-      <div class="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-semibold">
-        <a href="/" class="flex gap-1 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-          <!-- <svg class="size-6 fill-current">
-            <use href="/brand.svg#brand"></use>
-          </svg> -->
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-mono font-semibold">
+        <a href="/" class="flex gap-0.5 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+          <span class="text-moss-600 dark:text-moss-400">~/</span>
           <div>
-            {SITE.TITLE}
+            {SITE.TITLE.split(" ")[0].toLowerCase()}
           </div>
         </a>
       </div>
 
     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <nav class="hidden md:flex items-center justify-center text-sm gap-1">
+      <nav class="hidden md:flex items-center justify-center text-sm font-mono gap-1">
         {
           LINKS.map((LINK) => (
-            <a href={LINK.HREF} class={cn("h-8 rounded-full px-3 text-current", "flex items-center justify-center", "transition-colors duration-300 ease-in-out", pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF ? "bg-black dark:bg-white text-white dark:text-black" : "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white")}>
-              {LINK.TEXT}
+            <a href={LINK.HREF} class={cn("h-8 rounded px-3 text-current lowercase", "flex items-center justify-center", "transition-colors duration-300 ease-in-out", pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF ? "text-ice-600 dark:text-ice-300 bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/10 hover:text-black dark:hover:text-white")}>
+              <span class="opacity-40">/</span>{LINK.TEXT}
             </a>
           ))
         }

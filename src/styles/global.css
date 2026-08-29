@@ -27,14 +27,13 @@
 html {
   overflow-y: scroll;
   color-scheme: light;
-  background-color: white;
+  background-color: #eef3f4;
   font-family: "Atkinson", sans-serif;
-
 }
 
 html.dark {
   color-scheme: dark;
-  background-color: black;
+  background-color: #0b0f13;
 }
 
 html,
@@ -50,6 +49,28 @@ body {
 
 main {
   @apply flex flex-col flex-1 bg-white dark:bg-black;
+}
+
+/* Selection + scrollbar take the ice accent instead of default blue/gray */
+::selection {
+  @apply bg-ice-300/60 dark:bg-ice-700/60 text-black dark:text-white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-black/15 dark:bg-white/15 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-black/25 dark:bg-white/25;
 }
 
 header {
@@ -71,23 +92,28 @@ article {
   @apply prose dark:prose-invert max-w-full pb-12;
 }
 
+article :is(h1, h2, h3, h4) {
+  @apply font-mono font-semibold;
+}
+
+article :is(a) {
+  @apply text-ice-600 dark:text-ice-300 decoration-ice-600/40 dark:decoration-ice-300/40;
+}
+
+article :is(code) {
+  @apply font-mono text-[0.85em];
+}
+
+article blockquote {
+  @apply border-moss-500/60 dark:border-moss-400/60;
+}
+
 .page-heading {
-  @apply font-semibold text-black dark:text-white;
+  @apply font-mono font-semibold text-black dark:text-white;
 }
 
 .blend {
   @apply transition-all duration-300 ease-in-out;
-}
-
-/** Light theme particles on home page */
-@keyframes animateParticle {
-  from {
-    transform: translateY(0px);
-  }
-
-  to {
-    transform: translateY(-2000px);
-  }
 }
 
 /** styles for public /animation.js */
@@ -110,52 +136,68 @@ article img {
 }
 
 /**
- * TWINKLE STARS
+ * TERMINAL / PROMPT UI
  */
 
-#twinkle-star.template {
-  @apply absolute -left-full;
-  /* hide offscreen */
+.prompt::before {
+  content: "$ ";
+  @apply text-moss-600 dark:text-moss-400;
 }
 
-#twinkle-star.twinkle {
-  @apply animate-twinkle;
-  /* defined in tailwind.config */
+.comment {
+  @apply text-black/40 dark:text-white/40;
 }
 
+.comment::before {
+  content: "# ";
+}
+
+.cursor {
+  @apply inline-block w-[0.55em] h-[1em] -mb-[0.15em] bg-ice-600 dark:bg-ice-300 animate-blink;
+}
+
+.chip {
+  @apply inline-flex items-center gap-1.5 text-xs uppercase tracking-wide font-mono py-1 px-2 rounded border border-black/15 dark:border-white/20 text-black/60 dark:text-white/60;
+}
 
 /**
- * Meteors
+ * TOPOGRAPHIC CONTOUR BACKDROP
+ * Faint elevation-line texture behind the whole site.
  */
-
-#meteors .shower {
-  @apply absolute inset-0 top-0;
-  ;
-  @apply left-1/2 -translate-x-1/2;
-  @apply w-screen aspect-square;
+.topo-field {
+  @apply pointer-events-none fixed inset-0 -z-10;
+  background-repeat: repeat;
+  background-size: 480px 480px;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'%3E%3Cg fill='none' stroke='%230b0f13' stroke-width='1.4'%3E%3Cpath d='M-20 60 Q 100 20 220 60 T 500 60'/%3E%3Cpath d='M-20 110 Q 100 70 220 110 T 500 110'/%3E%3Cpath d='M-20 160 Q 100 120 220 160 T 500 160'/%3E%3Cpath d='M-20 280 Q 120 330 260 280 T 500 280'/%3E%3Cpath d='M-20 330 Q 120 380 260 330 T 500 330'/%3E%3Cpath d='M-20 380 Q 120 430 260 380 T 500 380'/%3E%3Cpath d='M-20 430 Q 120 470 260 430 T 500 430'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-#meteors .meteor {
-  @apply animate-meteor;
-  /* defined in tailwind.config */
-  @apply absolute top-1/2 left-1/2 w-px h-[75vh];
-  @apply bg-gradient-to-b from-white to-transparent;
+html.dark .topo-field {
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'%3E%3Cg fill='none' stroke='%23eef3f4' stroke-width='1.4'%3E%3Cpath d='M-20 60 Q 100 20 220 60 T 500 60'/%3E%3Cpath d='M-20 110 Q 100 70 220 110 T 500 110'/%3E%3Cpath d='M-20 160 Q 100 120 220 160 T 500 160'/%3E%3Cpath d='M-20 280 Q 120 330 260 280 T 500 280'/%3E%3Cpath d='M-20 330 Q 120 380 260 330 T 500 330'/%3E%3Cpath d='M-20 380 Q 120 430 260 380 T 500 380'/%3E%3Cpath d='M-20 430 Q 120 470 260 430 T 500 430'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-#meteors .shower.ur {
-  @apply rotate-45;
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink,
+  .animate-pulseBar,
+  .animate-twinkle,
+  .animate-fly,
+  .animate-shoot,
+  .animate-liftChair {
+    animation: none !important;
+  }
 }
 
-#meteors .shower.dr {
-  @apply rotate-135;
+/**
+ * Waveform placeholder (used on Music cards until real cover art exists)
+ */
+.waveform {
+  @apply flex items-end gap-[3px] h-8;
 }
 
-#meteors .shower.dl {
-  @apply rotate-225;
-}
-
-#meteors .shower.ul {
-  @apply rotate-315;
+.waveform span {
+  @apply w-[3px] rounded-full bg-ice-500/70 dark:bg-ice-300/70;
+  animation: pulseBar 1.6s ease-in-out infinite;
 }
 
 .copy-cnt {
@@ -172,15 +214,3 @@ article img {
 .copy-svg {
   @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
 }
-
-/* Card transition */
-/* .fade-move-enter-active,
-.fade-move-exit-active {
-  transition: all 300ms ease;
-}
-
-.fade-move-enter-from,
-.fade-move-exit-to {
-  opacity: 0;
-  transform: translateY(10px);
-} */

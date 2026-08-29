@@ -39,13 +39,13 @@ function formatWorkDate(input: Date | string) {
       { 
         work.map((entry) => (
           <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
-            <div class="text-sm uppercase mb-4">
+            <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50 mb-4">
               {formatWorkDate(entry.data.dateStart)} - {formatWorkDate(entry.data.dateEnd)}
             </div>
-            <div class="text-black dark:text-white font-semibold">
+            <div class="text-black dark:text-white font-mono font-semibold">
               {entry.data.company}
             </div>
-            <div class="text-sm font-semibold">
+            <div class="text-sm font-semibold text-moss-600 dark:text-moss-400">
               {entry.data.role}
             </div>
             <article class="prose dark:prose-invert">
