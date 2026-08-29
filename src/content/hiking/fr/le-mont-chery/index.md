@@ -1,21 +1,21 @@
 ---
 title: "Le Mont Chéry"
-summary: "A hike right next to the Les Gets ski resort, in the Chablais."
+summary: "Une rando juste à côté de la station des Gets, dans le Chablais."
 date: "Aug 29 2026"
 draft: false
 tags:
-  - alps
+  - alpes
   - chablais
-  - day hike
+  - rando à la journée
 location: "Les Gets, Chablais (FR)"
-elevation: "1,826 m"
-distance: "7.2 km"
+elevation: "1 826 m"
+distance: "7,2 km"
 duration: "1h46"
 ---
 
-Right next to the Les Gets ski resort - the same slopes you'd ride down in winter, walked up in summer instead. A very easy hike, and the summit view is genuinely great: Mont Blanc and the Chablais on one side, the ski slopes of Morzine and Les Gets on the other.
+Juste à côté de la station des Gets : les mêmes pistes qu'on descend en hiver, remontées à pied en été. Une rando très facile, avec une vue au sommet vraiment superbe : le Mont Blanc et le Chablais d'un côté, les pistes de Morzine et des Gets de l'autre.
 
-The one downside: the main path just follows a ski slope, which isn't the most interesting way up - there are other paths worth exploring instead. Park at the Col de l'Encrenaz to start.
+Le seul bémol : le chemin principal longe une piste de ski, ce qui n'est pas le tracé le plus intéressant pour monter. Il existe d'autres itinéraires qui valent le détour. On se gare au Col de l'Encrenaz pour partir.
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
@@ -77,7 +77,7 @@ The one downside: the main path just follows a ski slope, which isn't the most i
     L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
       maxZoom: 17,
       attribution:
-        'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+        'Données : &copy; <a href="https://www.openstreetmap.org/copyright">contributeurs OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Style : &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
     }).addTo(map);
 
     new L.GPX("/gpx/le-mont-chery.gpx", {
@@ -91,7 +91,7 @@ The one downside: the main path just follows a ski slope, which isn't the most i
   })();
 </script>
 
-<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
+<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
   <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19952496254" data-style="standard" data-from-embed="false" data-token="Mqr-sukNkeRqJ3tI-ffZ7aA7lQ-DkGwjaaO2qVxnkRY"></div>
   <script src="https://strava-embeds.com/embed.js"></script>

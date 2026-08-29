@@ -1,21 +1,21 @@
 ---
 title: "Pointe de Chamossière"
-summary: "A hike in the Chablais, in the Portes du Soleil."
+summary: "Une rando dans le Chablais, dans les Portes du Soleil."
 date: "Aug 22 2026"
 draft: false
 tags:
-  - alps
+  - alpes
   - chablais
-  - day hike
-location: "Chablais, near Morzine and Samoëns (FR)"
-elevation: "1,889 m"
-distance: "5.4 km"
+  - rando à la journée
+location: "Chablais, près de Morzine et Samoëns (FR)"
+elevation: "1 889 m"
+distance: "5,4 km"
 duration: "1h19"
 ---
 
-From the top, the panorama opens up fully: Mont Blanc on the skyline, Samoëns and Sixt-Fer-à-Cheval tucked in the valley below, and directly across, the sharp outline of the Pointe des Avoudrues (2,666 m). One of the better payoff-per-effort viewpoints in the Portes du Soleil.
+Depuis le sommet, le panorama s'ouvre complètement : le Mont Blanc à l'horizon, Samoëns et Sixt-Fer-à-Cheval nichés dans la vallée en contrebas, et juste en face, la silhouette découpée de la Pointe des Avoudrues (2 666 m). Un des meilleurs rapports effort/panorama des Portes du Soleil.
 
-A very easy, well-marked hike - anyone can do this one, no technical difficulty at all. Park at the Lac de Joux Plane and start from there.
+Une rando très facile et bien balisée. Tout le monde peut la faire, aucune difficulté technique. On se gare au Lac de Joux Plane et on part de là.
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
@@ -77,7 +77,7 @@ A very easy, well-marked hike - anyone can do this one, no technical difficulty 
     L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
       maxZoom: 17,
       attribution:
-        'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+        'Données : &copy; <a href="https://www.openstreetmap.org/copyright">contributeurs OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Style : &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
     }).addTo(map);
 
     new L.GPX("/gpx/pointe-de-chamossiere.gpx", {
@@ -91,7 +91,7 @@ A very easy, well-marked hike - anyone can do this one, no technical difficulty 
   })();
 </script>
 
-<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
+<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
   <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19946691739" data-style="standard" data-from-embed="false" data-token="QKN4NWBP6xx_ei6DEUAq5sWVcgZ305_pf3Hx5bjlgGQ"></div>
   <script src="https://strava-embeds.com/embed.js"></script>

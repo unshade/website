@@ -1,0 +1,263 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import PageLayout from "@layouts/PageLayout.astro"
+import ArrowCard from "@components/ArrowCard"
+import StackCard from "@components/StackCard.astro"
+import { SOCIALS } from "@consts"
+import Ridgeline from "@components/Ridgeline.astro"
+import Sky from "@components/Sky.astro"
+import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
+
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
+const posts = (await getLocalizedCollection("blog", lang))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const projects = (await getLocalizedCollection("projects", lang))
+  .filter(project => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const tracks = (await getLocalizedCollection("music", lang))
+  .filter(track => !track.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const trails = (await getLocalizedCollection("hiking", lang))
+  .filter(trail => !trail.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const stack = [
+  {
+    text: "Astro",
+    icon: "astro",
+    href: "https://astro.build"
+  },
+  {
+    text: "Javascript",
+    icon: "javascript",
+    href: "https://www.javascript.com"
+  },
+  {
+    text: "Typescript",
+    icon: "typescript",
+    href: "https://www.typescriptlang.org"
+  },
+  {
+    text: "Tailwind",
+    icon: "tailwind",
+    href: "https://tailwindcss.com"
+  },
+]
+---
+
+<PageLayout title="Home" description={t("site.description")}>
+
+  <div class="topo-field"></div>
+
+  <!-- HERO -->
+  <section class="relative h-screen w-full overflow-hidden">
+    <Sky />
+    <Ridgeline />
+    <div class="animate absolute h-full w-full flex items-center justify-center">
+      <div class='relative w-full h-full flex items-center justify-center'>
+        <div class='p-5 text-center font-mono'>
+          <p class='animated text-sm md:text-base opacity-60'>
+            <span class="prompt">{t("hero.whoami")}</span>
+          </p>
+          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white mt-1'>
+            noé steiner<span class="cursor"></span>
+          </p>
+          <p class='animated text-sm md:text-base lg:text-lg opacity-75 mt-3'>
+            {t("hero.role")}
+          </p>
+          <p class='animated text-xs md:text-sm mt-1'>
+            <span class="text-ice-600 dark:text-ice-300">{t("hero.pillar.infra")}</span>
+            <span class="opacity-30 mx-1">·</span>
+            <span class="text-moss-600 dark:text-moss-400">{t("hero.pillar.music")}</span>
+            <span class="opacity-30 mx-1">·</span>
+            <span class="opacity-70">{t("hero.pillar.trails")}</span>
+          </p>
+          <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-6'>
+            <a href={localizePath(lang, "/blog")} class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+              {t("hero.cta.blog")}
+            </a>
+            <a href={localizePath(lang, "/work")} class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
+              {t("hero.cta.work")}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="relative bg-white dark:bg-black">
+    <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
+
+      <!-- About Section -->
+      <section class="animate">
+        <article>
+          <p set:html={t("home.about.p1")} />
+          <p set:html={t("home.about.p2")} />
+          <p>
+            {t("home.about.p3.pre")}
+            {" "}<a href={localizePath(lang, "/music")}>{t("nav.music")}</a>
+            {" "}{t("home.about.p3.and")}{" "}
+            <a href={localizePath(lang, "/hiking")}>{t("nav.trails")}</a>.
+          </p>
+          <p>{t("home.about.p4")}</p>
+        </article>
+      </section>
+
+      <!-- Blog Preview Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-mono font-semibold text-black dark:text-white">
+              {t("home.recentPosts")}
+            </p>
+            <a href={localizePath(lang, "/blog")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                {t("home.allPosts")}
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {posts.map((post) => (
+              <li>
+                <ArrowCard entry={post} lang={lang} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Music Preview Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-mono font-semibold text-black dark:text-white">
+              {t("home.recentTracks")}
+            </p>
+            <a href={localizePath(lang, "/music")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                {t("home.allTracks")}
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {tracks.map((track) => (
+              <li>
+                <ArrowCard entry={track} lang={lang} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Project Preview Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-mono font-semibold text-black dark:text-white">
+              {t("home.recentProjects")}
+            </p>
+            <a href={localizePath(lang, "/projects")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                {t("home.allProjects")}
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {projects.map((project) => (
+              <li>
+                <ArrowCard entry={project} lang={lang} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Trails Preview Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-mono font-semibold text-black dark:text-white">
+              {t("home.recentTrails")}
+            </p>
+            <a href={localizePath(lang, "/hiking")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                {t("home.allTrails")}
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {trails.map((trail) => (
+              <li>
+                <ArrowCard entry={trail} lang={lang} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Tech Stack Section -->
+      <section class="animate">
+        <div class="space-y-4">
+          <p class="font-mono font-semibold text-black dark:text-white">
+            {t("home.builtWith")}
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mt-5">
+            {stack.map(item => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+          <div>
+            {t("home.builtWithNote")}
+            {" "}
+            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                SolidJS
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="animate">
+        <div>
+          <p class="font-mono font-semibold text-black dark:text-white">
+            {t("home.connect")}
+          </p>
+          <p>
+            {t("home.connectNote")}
+          </p>
+          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
+            {SOCIALS.map(social => (
+              <div class="col-span-1 flex items-center gap-1">
+                <span class="whitespace-nowrap truncate">
+                  {social.NAME}
+                </span>
+              </div>
+              <div class="col-span-3 truncate">
+                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                    {social.TEXT}
+                  </span>
+                </a>
+              </div>
+            ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</PageLayout>

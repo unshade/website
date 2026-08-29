@@ -1,5 +1,7 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content"
+import { type CollectionEntry } from "astro:content"
+import { getLocalizedCollection } from "@lib/i18n-content"
+import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
 
 type Props = {
   entry:
@@ -14,8 +16,12 @@ const { entry } = Astro.props
 const { collection } = entry
 const { Content } = await entry.render()
 
-// Get the next and prev entries (modulo to wrap index)
-const items = (await getCollection(collection))
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
+// Get the next and prev entries (modulo to wrap index), within this
+// entry's own language only.
+const items = (await getLocalizedCollection(collection, lang))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 const index = items.findIndex(x => x.slug === entry.slug)
@@ -28,11 +34,11 @@ const next = items[(index + 1) % items.length]
     <Content/>
   </article>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <a href={`/${prev.collection}/${prev.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend">
+    <a href={localizePath(lang, `/${prev.collection}/${prev.realSlug}`)} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend">
       <div class="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
         <div class="flex flex-wrap gap-2">
           <div class="text-sm uppercase">
-            Prev
+            {t("article.prev")}
           </div>
         </div>
         <div class="font-semibold mt-3 text-black dark:text-white">
@@ -44,10 +50,10 @@ const next = items[(index + 1) % items.length]
         <polyline points="12 5 19 12 12 19" class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out" />
       </svg>
     </a>
-    <a href={`/${next.collection}/${next.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+    <a href={localizePath(lang, `/${next.collection}/${next.realSlug}`)} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
       <div class="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
         <div class="text-sm uppercase">
-          Next
+          {t("article.next")}
         </div>
         <div class="font-semibold mt-3 text-black dark:text-white">
           {next.data.title}

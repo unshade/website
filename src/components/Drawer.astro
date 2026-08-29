@@ -1,29 +1,39 @@
 ---
-import { SITE, LINKS } from "@consts"
+import { SITE, NAV_LINKS } from "@consts"
 import { cn } from "@lib/utils"
+import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
 const { pathname } = Astro.url
-const subpath = pathname.match(/[^/]+/g)
+
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const otherLang = lang === "en" ? "fr" : "en"
+const unlocalizedPath = lang === "fr" ? pathname.replace(/^\/fr/, "") || "/" : pathname
+const subpath = unlocalizedPath.match(/[^/]+/g)
 ---
 
 <div id="drawer" class="fixed inset-0 h-0 z-40 overflow-hidden flex flex-col items-center justify-center md:hidden bg-neutral-100 dark:bg-neutral-900 transition-[height] duration-300 ease-in-out">
   <nav class="flex flex-col items-center space-y-2 font-mono lowercase">
     {
-      LINKS.map((LINK) => (
-        <a href={LINK.HREF} class={cn("flex items-center justify-center px-3 py-1 rounded", "text-current hover:text-black dark:hover:text-white", "hover:bg-black/5 dark:hover:bg-white/20", "transition-colors duration-300 ease-in-out", pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF ? "pointer-events-none text-ice-600 dark:text-ice-300 bg-black/5 dark:bg-white/10" : "")}>
-          <span class="opacity-40">/</span>{LINK.TEXT}
+      NAV_LINKS.map((LINK) => (
+        <a href={localizePath(lang, LINK.href)} class={cn("flex items-center justify-center px-3 py-1 rounded", "text-current hover:text-black dark:hover:text-white", "hover:bg-black/5 dark:hover:bg-white/20", "transition-colors duration-300 ease-in-out", unlocalizedPath === LINK.href || "/" + subpath?.[0] === LINK.href ? "pointer-events-none text-ice-600 dark:text-ice-300 bg-black/5 dark:bg-white/10" : "")}>
+          <span class="opacity-40">/</span>{t(LINK.key)}
         </a>
       ))
     }
   </nav>
 
   <div class="flex gap-1 mt-5">
-    <a href="/search" aria-label={`Search blog posts and projects on ${SITE.TITLE}`} class={cn("size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out", pathname === "/search" || "/" + subpath?.[0] === "search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : "")}>
+    <a href={localizePath(otherLang, unlocalizedPath)} aria-label="Switch language" class="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 text-current border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out font-mono text-xs font-semibold flex justify-center">
+      {t("lang.switch")}
+    </a>
+
+    <a href={localizePath(lang, "/search")} aria-label={`Search blog posts and projects on ${SITE.TITLE}`} class={cn("size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out", unlocalizedPath === "/search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : "")}>
       <svg class="size-full">
         <use href="/ui.svg#search"></use>
       </svg>
     </a>
 
-    <a href="/rss.xml" target="_blank" aria-label={`Rss feed for ${SITE.TITLE}`} class="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out">
+    <a href={lang === "fr" ? "/fr/rss.xml" : "/rss.xml"} target="_blank" aria-label={`Rss feed for ${SITE.TITLE}`} class="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out">
       <svg class="size-full">
         <use href="/ui.svg#rss"></use>
       </svg>

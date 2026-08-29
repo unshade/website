@@ -1,0 +1,16 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import CollectionArticleBody from "@components/pages/CollectionArticleBody.astro"
+
+export async function getStaticPaths() {
+  const trails = await getLocalizedCollection("hiking", "fr")
+  return trails.map((trail) => ({
+    params: { slug: trail.realSlug },
+    props: trail,
+  }))
+}
+
+const entry = Astro.props
+---
+
+<CollectionArticleBody entry={entry} />

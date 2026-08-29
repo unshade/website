@@ -1,0 +1,16 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import LegalArticleBody from "@components/pages/LegalArticleBody.astro"
+
+export async function getStaticPaths() {
+  const docs = await getLocalizedCollection("legal", "fr")
+  return docs.map((doc) => ({
+    params: { slug: doc.realSlug },
+    props: doc,
+  }))
+}
+
+const doc = Astro.props
+---
+
+<LegalArticleBody doc={doc} />

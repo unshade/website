@@ -1,0 +1,53 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import SearchCollection from "@components/SearchCollection"
+import { useTranslations, getCurrentLang, type ui } from "@i18n/ui"
+
+type UiKey = keyof (typeof ui)["en"]
+
+interface Props {
+  collection: "blog" | "projects" | "music" | "hiking"
+  entryName: "posts" | "projects" | "tracks" | "trails"
+  titleKey: UiKey
+  descKey: UiKey
+}
+
+const { collection, entryName, titleKey, descKey } = Astro.props
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
+const items = (await getLocalizedCollection(collection, lang))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+const tags = [...new Set(items.flatMap((item) => item.data.tags))].sort((a, b) =>
+  a.localeCompare(b),
+)
+
+const estimated_initial_size = 28 + items.length * 158 + (items.length - 1) * 12
+---
+
+<PageLayout title={t(titleKey)} description={t(descKey)}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-mono font-semibold text-black dark:text-white mt-2">
+        {t(titleKey)}
+      </h1>
+      <div class="mt-1">
+        {t(descKey)}
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div
+      id="search-collection-wrapper"
+      class="animate"
+      style={{ minHeight: `${estimated_initial_size}px` }}
+    >
+      <SearchCollection client:load entry_name={entryName} tags={tags} data={items} lang={lang} />
+    </div>
+  </BottomLayout>
+</PageLayout>

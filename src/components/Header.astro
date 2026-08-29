@@ -1,16 +1,22 @@
 ---
-import { SITE, LINKS } from "@consts"
+import { SITE, NAV_LINKS } from "@consts"
 import { cn } from "@lib/utils"
+import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
 const { pathname } = Astro.url
-const subpath = pathname.match(/[^/]+/g)
 import Container from "@components/Container.astro"
+
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const otherLang = lang === "en" ? "fr" : "en"
+const unlocalizedPath = lang === "fr" ? pathname.replace(/^\/fr/, "") || "/" : pathname
+const subpath = unlocalizedPath.match(/[^/]+/g)
 ---
 
 <header id="header" class="fixed top-0 w-full h-16 z-50 ">
-  <Container size="md">
+  <Container size="lg">
     <div class="relative h-full w-full">
       <div class="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-mono font-semibold">
-        <a href="/" class="flex gap-0.5 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+        <a href={localizePath(lang, "/")} class="flex gap-0.5 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
           <span class="text-moss-600 dark:text-moss-400">~/</span>
           <div>
             {SITE.TITLE.split(" ")[0].toLowerCase()}
@@ -21,9 +27,9 @@ import Container from "@components/Container.astro"
     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
       <nav class="hidden md:flex items-center justify-center text-sm font-mono gap-1">
         {
-          LINKS.map((LINK) => (
-            <a href={LINK.HREF} class={cn("h-8 rounded px-3 text-current lowercase", "flex items-center justify-center", "transition-colors duration-300 ease-in-out", pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF ? "text-ice-600 dark:text-ice-300 bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/10 hover:text-black dark:hover:text-white")}>
-              <span class="opacity-40">/</span>{LINK.TEXT}
+          NAV_LINKS.map((LINK) => (
+            <a href={localizePath(lang, LINK.href)} class={cn("h-8 rounded px-3 text-current lowercase", "flex items-center justify-center", "transition-colors duration-300 ease-in-out", unlocalizedPath === LINK.href || "/" + subpath?.[0] === LINK.href ? "text-ice-600 dark:text-ice-300 bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/10 hover:text-black dark:hover:text-white")}>
+              <span class="opacity-40">/</span>{t(LINK.key)}
             </a>
           ))
         }
@@ -31,13 +37,17 @@ import Container from "@components/Container.astro"
     </div>
 
     <div class="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
-      <a href="/search" aria-label={`Search blog posts and projects on ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out", pathname === "/search" || "/" + subpath?.[0] === "/search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : "")}>
+      <a href={localizePath(otherLang, unlocalizedPath)} aria-label="Switch language" class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "text-current hover:text-black hover:dark:text-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out", "font-mono text-xs font-semibold")}>
+        {t("lang.switch")}
+      </a>
+
+      <a href={localizePath(lang, "/search")} aria-label={`Search blog posts and projects on ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out", unlocalizedPath === "/search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : "")}>
         <svg class="size-full">
           <use href="/ui.svg#search"></use>
         </svg>
       </a>
 
-      <a href="/rss.xml" target="_blank" aria-label={`Rss feed for ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
+      <a href={lang === "fr" ? "/fr/rss.xml" : "/rss.xml"} target="_blank" aria-label={`Rss feed for ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
         <svg class="size-full">
           <use href="/ui.svg#rss"></use>
         </svg>

@@ -5,19 +5,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date: Date) {
-  return Intl.DateTimeFormat("en-US", {
+export function formatDate(date: Date, lang: "en" | "fr" = "en") {
+  return Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric"
   }).format(date)
 }
 
-export function readingTime(html: string) {
+export function readingTime(html: string, lang: "en" | "fr" = "en") {
   const textOnly = html.replace(/<[^>]+>/g, "")
   const wordCount = textOnly.split(/\s+/).length
   const readingTimeMinutes = ((wordCount / 200) + 1).toFixed()
-  return `${readingTimeMinutes} min read`
+  return lang === "fr" ? `${readingTimeMinutes} min de lecture` : `${readingTimeMinutes} min read`
 }
 
 

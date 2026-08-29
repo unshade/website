@@ -1,6 +1,6 @@
 ---
 title: "Homelab"
-summary: "My current personal infrastructure - Kubernetes and Terraform, rebuilt from scratch."
+summary: "My current personal infrastructure: Kubernetes and Terraform, rebuilt from scratch."
 date: "Jul 17 2026"
 draft: false
 tags:

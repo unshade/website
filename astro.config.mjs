@@ -7,5 +7,22 @@ import solidJs from "@astrojs/solid-js"
 // https://astro.build/config
 export default defineConfig({
   site: "https://nstnr.com",
-  integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fr"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+  integrations: [
+    mdx(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: { en: "en", fr: "fr" },
+      },
+    }),
+    solidJs(),
+    tailwind({ applyBaseStyles: false }),
+  ],
 })

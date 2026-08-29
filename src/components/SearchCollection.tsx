@@ -4,6 +4,7 @@ import Fuse from "fuse.js"
 import ArrowCard from "@components/ArrowCard"
 import { cn } from "@lib/utils"
 import SearchBar from "@components/SearchBar"
+import { useTranslations, type Lang } from "@i18n/ui"
 
 type Entry =
   | CollectionEntry<"blog">
@@ -11,13 +12,17 @@ type Entry =
   | CollectionEntry<"music">
   | CollectionEntry<"hiking">
 
+type EntryName = "posts" | "projects" | "tracks" | "trails"
+
 type Props = {
-  entry_name: string
+  entry_name: EntryName
   tags: string[]
   data: Entry[]
+  lang: Lang
 }
 
-export default function SearchCollection({ entry_name, data, tags }: Props) {
+export default function SearchCollection({ entry_name, data, tags, lang }: Props) {
+  const t = useTranslations(lang)
   const coerced = data.map((entry) => entry as CollectionEntry<'blog'>);
 
   const [query, setQuery] = createSignal("");
@@ -81,9 +86,9 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
       <div class="col-span-3 sm:col-span-1">
         <div class="sticky top-24 mt-7">
           {/* Search Bar */}
-          <SearchBar onSearchInput={onSearchInput} query={query} setQuery={setQuery} placeholderText={`Search ${entry_name}`} />
+          <SearchBar onSearchInput={onSearchInput} query={query} setQuery={setQuery} placeholderText={t(`search.placeholder.${entry_name}`)} />
           {/* Tag Filters */}
-          <div class="relative flex flex-row justify-between w-full"><p class="text-sm font-mono font-semibold uppercase my-4 text-black dark:text-white">Tags</p>
+          <div class="relative flex flex-row justify-between w-full"><p class="text-sm font-mono font-semibold uppercase my-4 text-black dark:text-white">{t("search.tags")}</p>
             {filter().size > 0 && (
               <button
                 onClick={clearFilters}
@@ -143,11 +148,11 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
           {/* Info Bar */}
           <div class='flex justify-between flex-row mb-2'>
             <div class="text-sm uppercase font-mono">
-              SHOWING {collection().length} OF {data.length} {entry_name}
+              {t("search.showing", { n: collection().length, total: data.length, name: t(`search.name.${entry_name}`) })}
             </div>
             <button onClick={toggleDescending} class='flex flex-row gap-1 stroke-neutral-400 dark:stroke-neutral-500 hover:stroke-neutral-600 hover:dark:stroke-neutral-300 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 hover:dark:text-neutral-300'>
               <div class="text-sm uppercase font-mono">
-                {descending() ? "DESCENDING" : "ASCENDING"}
+                {descending() ? t("search.descending") : t("search.ascending")}
               </div>
               <svg
                 class="size-5 left-2 top-[0.45rem]"
@@ -160,7 +165,7 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
           <ul class="flex flex-col gap-3">
             {collection().map((entry) => (
               <li>
-                <ArrowCard entry={entry} />
+                <ArrowCard entry={entry} lang={lang} />
               </li>
             ))}
           </ul>

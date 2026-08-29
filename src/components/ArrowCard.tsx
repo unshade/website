@@ -1,4 +1,5 @@
 import { formatDate, truncateText } from "@lib/utils"
+import { localizePath, unlocalizeSlug, useTranslations, type Lang } from "@i18n/ui"
 import type { CollectionEntry } from "astro:content"
 
 type Entry =
@@ -10,30 +11,33 @@ type Entry =
 type Props = {
   entry: Entry
   pill?: boolean
+  lang: Lang
 }
 
-const PILL_LABEL: Record<Entry["collection"], string> = {
-  blog: "post",
-  projects: "project",
-  music: "track",
-  hiking: "trail",
+const PILL_KEY: Record<Entry["collection"], "pill.blog" | "pill.projects" | "pill.music" | "pill.hiking"> = {
+  blog: "pill.blog",
+  projects: "pill.projects",
+  music: "pill.music",
+  hiking: "pill.hiking",
 }
 
-export default function ArrowCard({ entry, pill }: Props) {
+export default function ArrowCard({ entry, pill, lang }: Props) {
   const isMusic = entry.collection === "music"
   const isHiking = entry.collection === "hiking"
+  const t = useTranslations(lang)
+  const href = localizePath(lang, `/${entry.collection}/${unlocalizeSlug(entry.slug)}`)
 
   return (
-    <a href={`/${entry.collection}/${entry.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+    <a href={href} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
       <div class="w-full group-hover:text-black group-hover:dark:text-white blend">
         <div class="flex flex-wrap items-center gap-2">
           {pill &&
             <div class="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25 font-mono">
-              {PILL_LABEL[entry.collection]}
+              {t(PILL_KEY[entry.collection])}
             </div>
           }
           <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50">
-            {formatDate(entry.data.date)}
+            {formatDate(entry.data.date, lang)}
           </div>
           {isHiking && entry.data.elevation &&
             <div class="text-xs uppercase font-mono text-moss-600 dark:text-moss-400">

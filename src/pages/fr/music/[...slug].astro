@@ -1,0 +1,16 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import CollectionArticleBody from "@components/pages/CollectionArticleBody.astro"
+
+export async function getStaticPaths() {
+  const tracks = await getLocalizedCollection("music", "fr")
+  return tracks.map((track) => ({
+    params: { slug: track.realSlug },
+    props: track,
+  }))
+}
+
+const entry = Astro.props
+---
+
+<CollectionArticleBody entry={entry} />

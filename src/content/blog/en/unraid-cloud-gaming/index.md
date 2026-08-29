@@ -1,5 +1,5 @@
 ---
-title: "Create Your Own Gaming Cloud  Unraid"
+title: "Create Your Own Gaming Cloud with Unraid"
 summary: "How to build your own gaming cloud with Unraid, Parsec, and Steam."
 date: "May 10 2024"
 draft: false

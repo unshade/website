@@ -3,6 +3,7 @@ import { createEffect, createSignal } from "solid-js"
 import Fuse from "fuse.js"
 import ArrowCard from "@components/ArrowCard"
 import SearchBar from "@components/SearchBar"
+import { useTranslations, type Lang } from "@i18n/ui"
 
 type Entry =
   | CollectionEntry<"blog">
@@ -12,9 +13,11 @@ type Entry =
 
 type Props = {
   data: Entry[]
+  lang: Lang
 }
 
-export default function Search({ data }: Props) {
+export default function Search({ data, lang }: Props) {
+  const t = useTranslations(lang)
   const [query, setQuery] = createSignal("")
   const [results, setResults] = createSignal<Entry[]>([])
 
@@ -40,17 +43,17 @@ export default function Search({ data }: Props) {
 
   return (
     <div class="flex flex-col">
-      <SearchBar onSearchInput={onSearchInput} query={query} setQuery={setQuery} placeholderText="What are you looking for?" />
+      <SearchBar onSearchInput={onSearchInput} query={query} setQuery={setQuery} placeholderText={t("search.placeholder")} />
 
       {(query().length >= 2 && results().length >= 1) && (
         <div class="mt-12">
           <div class="text-sm uppercase mb-2">
-            Found {results().length} results for {`'${query()}'`}
+            {t("search.foundFor", { n: results().length, q: query() })}
           </div>
           <ul class="flex flex-col gap-3">
             {results().map(result => (
               <li>
-                <ArrowCard entry={result} pill={true} />
+                <ArrowCard entry={result} pill={true} lang={lang} />
               </li>
             ))}
           </ul>

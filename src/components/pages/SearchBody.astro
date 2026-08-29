@@ -1,0 +1,31 @@
+---
+import { getLocalizedCollection } from "@lib/i18n-content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import Search from "@components/Search"
+import { useTranslations, getCurrentLang } from "@i18n/ui"
+
+const lang = getCurrentLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
+const posts = (await getLocalizedCollection("blog", lang)).filter((post) => !post.data.draft)
+const projects = (await getLocalizedCollection("projects", lang)).filter((post) => !post.data.draft)
+const tracks = (await getLocalizedCollection("music", lang)).filter((post) => !post.data.draft)
+const trails = (await getLocalizedCollection("hiking", lang)).filter((post) => !post.data.draft)
+
+const data = [...posts, ...projects, ...tracks, ...trails]
+---
+
+<PageLayout title={t("page.search.title")} description={t("page.search.description")}>
+  <TopLayout>
+    <div class="animate page-heading">
+      {t("page.search.title")}
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <Search client:load data={data} lang={lang} />
+    </div>
+  </BottomLayout>
+</PageLayout>
