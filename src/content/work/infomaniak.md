@@ -1,7 +1,7 @@
 ---
 company: "Infomaniak"
 role: "Software Engineer"
-dateStart: "03/01/2025"
+dateStart: "08/01/2025"
 dateEnd: "present"
 ---
 

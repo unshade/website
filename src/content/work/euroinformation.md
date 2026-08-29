@@ -1,8 +1,8 @@
 ---
 company: "Euro Information"
 role: "Software Engineer Intern"
-dateStart: "06/01/2022"
-dateEnd: "08/01/2022"
+dateStart: "06/01/2024"
+dateEnd: "08/01/2024"
 ---
 
 Euro Information is the IT subsidiary of Crédit Mutuel Alliance Fédérale, one of the largest banking groups in France. During my internship, I contributed to the development of internal banking applications on Kubernetes.

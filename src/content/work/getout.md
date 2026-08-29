@@ -2,7 +2,7 @@
 company: "GetOut"
 role: "Software Engineer"
 dateStart: "09/01/2024"
-dateEnd: "present"
+dateEnd: "09/01/2025"
 ---
 
 GetOut is a startup that provides a platform for booking outdoor activities and experiences. As a Software Engineer, I work on developing and maintaining backend services.

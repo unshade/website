@@ -7,14 +7,16 @@ import { WORK } from "@consts"
 
 const collection = await getCollection("work")
 
-collection.sort((a, b) => new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime())
-
-const work = await Promise.all(
+const positions = await Promise.all(
   collection.map(async (item) => {
     const { Content } = await item.render()
     return { ...item, Content }
   })
 )
+
+function toTime(input: Date | string) {
+  return input === "present" ? Infinity : new Date(input).getTime()
+}
 
 function formatWorkDate(input: Date | string) {
   if (typeof input === "string") return input
@@ -26,6 +28,29 @@ function formatWorkDate(input: Date | string) {
   const year = new Date(input).getFullYear()
   return `${month} ${year}`
 }
+
+// Group positions by company so multiple roles in the same place (an
+// internship that converted, a promotion, ...) render as one evolving
+// timeline instead of duplicate company cards.
+type Position = (typeof positions)[number]
+const byCompany = new Map<string, Position[]>()
+for (const position of positions) {
+  const roles = byCompany.get(position.data.company) ?? []
+  roles.push(position)
+  byCompany.set(position.data.company, roles)
+}
+
+const companies = [...byCompany.values()]
+  .map((roles) => {
+    roles.sort((a, b) => toTime(b.data.dateStart) - toTime(a.data.dateStart))
+    return {
+      company: roles[0].data.company,
+      roles,
+      tenureEnd: Math.max(...roles.map((r) => toTime(r.data.dateEnd))),
+      tenureStart: Math.min(...roles.map((r) => toTime(r.data.dateStart))),
+    }
+  })
+  .sort((a, b) => b.tenureEnd - a.tenureEnd || b.tenureStart - a.tenureStart)
 ---
 
 <PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
@@ -36,21 +61,29 @@ function formatWorkDate(input: Date | string) {
   </TopLayout>
   <BottomLayout>
     <ul>
-      { 
-        work.map((entry) => (
+      {
+        companies.map(({ company, roles }) => (
           <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
-            <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50 mb-4">
-              {formatWorkDate(entry.data.dateStart)} - {formatWorkDate(entry.data.dateEnd)}
+            <div class="text-black dark:text-white font-mono font-semibold text-lg">
+              {company}
             </div>
-            <div class="text-black dark:text-white font-mono font-semibold">
-              {entry.data.company}
-            </div>
-            <div class="text-sm font-semibold text-moss-600 dark:text-moss-400">
-              {entry.data.role}
-            </div>
-            <article class="prose dark:prose-invert">
-              <entry.Content />
-            </article>
+            <ul class="mt-4 space-y-6">
+              {roles.map((entry, i) => (
+                <li
+                  class={`pl-4 border-l-2 ${i === 0 ? "border-moss-500/60 dark:border-moss-400/60" : "border-black/10 dark:border-white/15"}`}
+                >
+                  <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50 mb-1">
+                    {formatWorkDate(entry.data.dateStart)} - {formatWorkDate(entry.data.dateEnd)}
+                  </div>
+                  <div class="text-sm font-semibold text-moss-600 dark:text-moss-400">
+                    {entry.data.role}
+                  </div>
+                  <article class="prose dark:prose-invert">
+                    <entry.Content />
+                  </article>
+                </li>
+              ))}
+            </ul>
           </li>
         ))
       }
