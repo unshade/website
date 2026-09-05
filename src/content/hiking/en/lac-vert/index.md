@@ -92,3 +92,9 @@ The col sits at exactly 2,000 m. From there, the Lac Vert comes into view just b
       .addTo(map);
   })();
 </script>
+
+<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
+<div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
+  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20048454167" data-style="standard" data-from-embed="false" data-token="XnCoNvAZ3pIiZKNRpzF2gaPgb6wwMnAlla82xOEC-j4"></div>
+  <script src="https://strava-embeds.com/embed.js"></script>
+</div>
