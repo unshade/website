@@ -9,7 +9,7 @@ tags:
   - day hike
 location: "Les Bossons, Chamonix-Mont-Blanc (FR)"
 elevation: "1,441 m"
-distance: "6.3 km"
+distance: "6.6 km"
 duration: "2h07"
 ---
 
