@@ -25,7 +25,7 @@ export default function ArrowCard({ entry, pill, lang }: Props) {
   const isMusic = entry.collection === "music"
   const isHiking = entry.collection === "hiking"
   const t = useTranslations(lang)
-  const href = localizePath(lang, `/${entry.collection}/${unlocalizeSlug(entry.slug)}`)
+  const href = localizePath(lang, `/${entry.collection}/${unlocalizeSlug(entry.id)}`)
 
   return (
     <a href={href} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">

@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from "astro:transitions"
 import { getCurrentLang } from "@i18n/ui"
 
 interface Props {
@@ -71,8 +70,6 @@ const rssURL = lang === "fr" ? new URL("fr/rss.xml", Astro.site) : new URL("rss.
 <script is:inline src="/js/scroll.js"></script>
 <script is:inline src="/js/animate.js"></script>
 <script defer is:inline src="/js/copy.js"></script>
-
-<!-- <ViewTransitions  /> -->
 
 <script>
   import type { TransitionBeforeSwapEvent } from "astro:transitions/client"

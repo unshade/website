@@ -54,7 +54,7 @@ const backKey = {
         <svg class="size-5 stroke-current">
           <use href="/ui.svg#book-open"/>
         </svg>
-        {readingTime(body, lang)}
+        {readingTime(body ?? "", lang)}
       </div>
     }
     {music?.bpm &&

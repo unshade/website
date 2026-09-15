@@ -1,7 +1,9 @@
-import { defineCollection, z } from "astro:content"
+import { defineCollection } from "astro:content"
+import { glob } from "astro/loaders"
+import { z } from "astro/zod"
 
 const work = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/work" }),
   schema: z.object({
     company: z.string(),
     role: z.string(),
@@ -11,7 +13,7 @@ const work = defineCollection({
 })
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -22,7 +24,7 @@ const blog = defineCollection({
 })
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -37,7 +39,7 @@ const projects = defineCollection({
 // Tracks made in FL Studio (or wherever). embedUrl can point at SoundCloud,
 // YouTube, Bandcamp, etc. - anything embeddable, or just a direct link.
 const music = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/music" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -55,7 +57,7 @@ const music = defineCollection({
 // Hikes/trips - photos and video live in the markdown body, meta fields
 // surface as chips on the card + article header.
 const hiking = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/hiking" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -71,7 +73,7 @@ const hiking = defineCollection({
 })
 
 const legal = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/legal" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),

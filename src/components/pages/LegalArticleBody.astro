@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content"
+import { render, type CollectionEntry } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
@@ -13,7 +13,7 @@ interface Props {
 
 const { doc } = Astro.props
 const { title, date } = doc.data
-const { Content } = await doc.render()
+const { Content } = await render(doc)
 
 const lang = getCurrentLang(Astro.currentLocale)
 const t = useTranslations(lang)

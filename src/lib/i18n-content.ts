@@ -10,11 +10,11 @@ export type CollectionName = "work" | "blog" | "projects" | "music" | "hiking" |
  * lang-prefix stripped slug) for building routes/links.
  */
 export async function getLocalizedCollection<C extends CollectionName>(collection: C, lang: Lang) {
-  const entries = await getCollection(collection, (entry: { slug: string }) =>
-    entry.slug.startsWith(`${lang}/`),
+  const entries = await getCollection(collection, (entry: { id: string }) =>
+    entry.id.startsWith(`${lang}/`),
   )
   return entries.map((entry) => ({
     ...entry,
-    realSlug: entry.slug.slice(lang.length + 1),
+    realSlug: entry.id.slice(lang.length + 1),
   }))
 }

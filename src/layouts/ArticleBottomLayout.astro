@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content"
+import { render, type CollectionEntry } from "astro:content"
 import { getLocalizedCollection } from "@lib/i18n-content"
 import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
 
@@ -14,7 +14,7 @@ type Props = {
 // Get the requested entry
 const { entry } = Astro.props
 const { collection } = entry
-const { Content } = await entry.render()
+const { Content } = await render(entry)
 
 const lang = getCurrentLang(Astro.currentLocale)
 const t = useTranslations(lang)
@@ -24,7 +24,7 @@ const t = useTranslations(lang)
 const items = (await getLocalizedCollection(collection, lang))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-const index = items.findIndex(x => x.slug === entry.slug)
+const index = items.findIndex(x => x.id === entry.id)
 const prev = items[(index - 1 + items.length) % items.length]
 const next = items[(index + 1) % items.length]
 ---
