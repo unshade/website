@@ -1,7 +1,7 @@
 import { getCollection } from "astro:content"
 import type { Lang } from "@i18n/ui"
 
-export type CollectionName = "work" | "blog" | "projects" | "music" | "hiking" | "legal"
+export type CollectionName = "work" | "education" | "blog" | "projects" | "music" | "hiking" | "legal"
 
 /**
  * Content collections are organized as <collection>/<lang>/<real-slug> so

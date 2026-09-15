@@ -10,9 +10,17 @@ const lang = getCurrentLang(Astro.currentLocale)
 const t = useTranslations(lang)
 
 const collection = await getLocalizedCollection("work", lang)
+const educationCollection = await getLocalizedCollection("education", lang)
 
 const positions = await Promise.all(
   collection.map(async (item) => {
+    const { Content } = await render(item)
+    return { ...item, Content }
+  })
+)
+
+const degrees = await Promise.all(
+  educationCollection.map(async (item) => {
     const { Content } = await render(item)
     return { ...item, Content }
   })
@@ -56,6 +64,8 @@ const companies = [...byCompany.values()]
     }
   })
   .sort((a, b) => b.tenureEnd - a.tenureEnd || b.tenureStart - a.tenureStart)
+
+const sortedDegrees = degrees.sort((a, b) => toTime(b.data.dateStart) - toTime(a.data.dateStart))
 ---
 
 <PageLayout title={t("page.work.title")} description={t("page.work.description")}>
@@ -65,6 +75,9 @@ const companies = [...byCompany.values()]
     </div>
   </TopLayout>
   <BottomLayout>
+    <p class="animate font-mono font-semibold text-black dark:text-white">
+      {t("work.section.experience")}
+    </p>
     <ul>
       {
         companies.map(({ company, roles }) => (
@@ -88,6 +101,37 @@ const companies = [...byCompany.values()]
                   </article>
                 </li>
               ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="animate font-mono font-semibold text-black dark:text-white mt-12">
+      {t("work.section.education")}
+    </p>
+    <ul>
+      {
+        sortedDegrees.map((degree) => (
+          <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
+            <div class="text-black dark:text-white font-mono font-semibold text-lg">
+              {degree.data.school}
+            </div>
+            <ul class="mt-4 space-y-6">
+              <li class="pl-4 border-l-2 border-ice-500/60 dark:border-ice-300/60">
+                <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50 mb-1">
+                  {formatWorkDate(degree.data.dateStart)} - {formatWorkDate(degree.data.dateEnd)}
+                </div>
+                <div class="text-sm font-semibold text-ice-600 dark:text-ice-300">
+                  {degree.data.degree}
+                </div>
+                <div class="text-sm text-black/75 dark:text-white/75">
+                  {degree.data.field}
+                </div>
+                <article class="prose dark:prose-invert">
+                  <degree.Content />
+                </article>
+              </li>
             </ul>
           </li>
         ))

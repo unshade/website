@@ -131,6 +131,8 @@ export const ui = {
 
     "music.listenOn": "Listen on",
 
+    "work.section.experience": "/experience",
+    "work.section.education": "/education",
     "work.date.present": "Present",
 
     "legal.lastUpdated": "Last updated:",
@@ -232,6 +234,8 @@ export const ui = {
 
     "music.listenOn": "Écouter sur",
 
+    "work.section.experience": "/experience",
+    "work.section.education": "/formation",
     "work.date.present": "Aujourd'hui",
 
     "legal.lastUpdated": "Dernière mise à jour :",

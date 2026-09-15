@@ -12,6 +12,17 @@ const work = defineCollection({
   }),
 })
 
+const education = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/education" }),
+  schema: z.object({
+    school: z.string(),
+    degree: z.string(),
+    field: z.string(),
+    dateStart: z.coerce.date(),
+    dateEnd: z.union([z.coerce.date(), z.string()]),
+  }),
+})
+
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
@@ -80,4 +91,4 @@ const legal = defineCollection({
   }),
 })
 
-export const collections = { work, blog, projects, music, hiking, legal }
+export const collections = { work, education, blog, projects, music, hiking, legal }
