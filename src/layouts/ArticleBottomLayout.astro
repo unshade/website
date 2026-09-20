@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from "astro:content"
 import { getLocalizedCollection } from "@lib/i18n-content"
+import HikeActions from "@components/HikeActions.astro"
 import { useTranslations, localizePath, getCurrentLang } from "@i18n/ui"
 
 type Props = {
@@ -33,6 +34,7 @@ const next = items[(index + 1) % items.length]
   <article>
     <Content/>
   </article>
+  {collection === "hiking" && <HikeActions slug={entry.id.split("/")[1]} />}
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <a href={localizePath(lang, `/${prev.collection}/${prev.realSlug}`)} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend">
       <div class="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">

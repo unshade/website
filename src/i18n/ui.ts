@@ -99,6 +99,8 @@ export const ui = {
     "footer.privacy": "Privacy",
     "footer.rights": "All rights reserved",
     "footer.backToTop": "Back to top",
+    "hike.downloadGpx": "Download GPX",
+    "hike.gpxHint": "Open the GPX in your hiking app (Komoot, AllTrails, Organic Maps, Gaia…) to follow the route.",
 
     "search.placeholder": "What are you looking for?",
     "search.placeholder.posts": "Search posts",
@@ -202,6 +204,8 @@ export const ui = {
     "footer.privacy": "Confidentialité",
     "footer.rights": "Tous droits réservés",
     "footer.backToTop": "Retour en haut",
+    "hike.downloadGpx": "Télécharger le GPX",
+    "hike.gpxHint": "Ouvrez le GPX dans votre appli de rando (Komoot, AllTrails, Organic Maps, Gaia…) pour suivre le tracé.",
 
     "search.placeholder": "Que cherchez-vous ?",
     "search.placeholder.posts": "Chercher un article",
