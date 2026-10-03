@@ -1,22 +1,20 @@
 ---
-title: "Pointe de Pelluaz"
-summary: "Une montée calme au-dessus de Bernex entre forêt et alpages, avec le lac Léman et le Mont Blanc au loin depuis le sommet."
-date: "Sep 27 2026"
+title: "Tour des alpages de Fréterolle"
+summary: "A beautiful, chill loop from Lac des Mines d'Or into raw mountains, forest and water."
+date: "Oct 3 2026"
 draft: false
 tags:
-  - alpes
-  - chablais
-  - mont-blanc
-  - rando à la journée
-location: "Chablais, au-dessus de Bernex (FR)"
-elevation: "1 914 m"
-distance: "9,70 km"
-duration: "2h48"
+  - alps
+  - day hike
+location: "Lac des Mines d'Or, Désert de Platé, Samoëns (FR)"
+elevation: "1,581 m"
+distance: "5.86 km"
+duration: "1h16"
 ---
 
-Juste à côté de la Dent d'Oche, au-dessus de Bernex. Très calme, avec de la forêt et des alpages sur le chemin.
+Starting at Lac des Mines d'Or, then climbing up into raw, beautiful mountains.
 
-Un joli mélange tout au long de la rando : forêt, eau, rochers. Depuis le sommet, le lac Léman s'étale en contrebas et le Mont Blanc apparaît au loin sur l'horizon.
+A very chill hike overall, with some forest and water along the way. Nothing hard, just a nice loop.
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
@@ -78,10 +76,10 @@ Un joli mélange tout au long de la rando : forêt, eau, rochers. Depuis le somm
     L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
       maxZoom: 17,
       attribution:
-        'Données : &copy; <a href="https://www.openstreetmap.org/copyright">contributeurs OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Style : &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+        'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
     }).addTo(map);
 
-    new L.GPX("/gpx/pointe-de-pelluaz.gpx", {
+    new L.GPX("/gpx/tour-des-alpages-de-freterolle.gpx", {
       async: true,
       polyline_options: { color: "#3e8ead", weight: 5, opacity: 0.9, lineJoin: "round" },
     })
@@ -92,8 +90,8 @@ Un joli mélange tout au long de la rando : forêt, eau, rochers. Depuis le somm
   })();
 </script>
 
-<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
+<p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20352267031" data-style="standard" data-from-embed="false" data-token="ikk3wuqnKRzv4l_2Urm17no64-2QMSuD6R_16hze9F0"></div>
+  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20434611665" data-style="standard" data-from-embed="false" data-token="ApOpnBf4KenJMOowAig6cL8wcmJCf58C5zm5VbxJ0Mg"></div>
   <script src="https://strava-embeds.com/embed.js"></script>
 </div>

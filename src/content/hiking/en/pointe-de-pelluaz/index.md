@@ -1,5 +1,5 @@
 ---
-title: "Pointe de Pellulaz"
+title: "Pointe de Pelluaz"
 summary: "A calm climb above Bernex through forest and alpages, with Lake LÃ©man and a distant Mont Blanc from the top."
 date: "Sep 27 2026"
 draft: false
@@ -81,7 +81,7 @@ A pleasant mix along the whole hike: forest, water, rocks. From the top, Lake LÃ
         'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
     }).addTo(map);
 
-    new L.GPX("/gpx/pointe-de-pellulaz.gpx", {
+    new L.GPX("/gpx/pointe-de-pelluaz.gpx", {
       async: true,
       polyline_options: { color: "#3e8ead", weight: 5, opacity: 0.9, lineJoin: "round" },
     })
