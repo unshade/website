@@ -10,8 +10,17 @@ export const defaultLang: Lang = "en"
 /** Canonical (English) path -> locale-prefixed path. English stays
  * unprefixed at the root; every other locale gets a /{lang} prefix. */
 export function localizePath(lang: Lang, path: string): string {
-  if (lang === defaultLang) return path
-  return path === "/" ? `/${lang}` : `/${lang}${path}`
+  const localized = lang === defaultLang ? path : `/${lang}${path}`
+  return withTrailingSlash(localized)
+}
+
+/** Pages are served at "/blog/" (the server 301s "/blog" there), so links
+ * point straight at the slash form. Files ("/rss.xml") and URLs with a
+ * query or hash are left alone. */
+function withTrailingSlash(path: string): string {
+  if (path.endsWith("/") || /[?#]/.test(path)) return path
+  const lastSegment = path.slice(path.lastIndexOf("/") + 1)
+  return lastSegment.includes(".") ? path : `${path}/`
 }
 
 /** Reverse of localizePath - reads the locale off a request URL. */
@@ -48,6 +57,7 @@ export const ui = {
     "site.description":
       "Software engineer working in cloud infrastructure. Also making tracks in FL Studio and chasing ridgelines in the Alps.",
 
+    "page.home.title": "Noé Steiner – Software Engineer, Cloud Infrastructure",
     "page.work.title": "Work",
     "page.work.description": "Places I have worked.",
     "page.blog.title": "Blog",
@@ -153,6 +163,7 @@ export const ui = {
     "site.description":
       "Ingénieur logiciel dans l'infrastructure cloud. Je fais aussi des morceaux sur FL Studio et je cours les crêtes des Alpes.",
 
+    "page.home.title": "Noé Steiner – Ingénieur logiciel, infrastructure cloud",
     "page.work.title": "Parcours",
     "page.work.description": "Les endroits où j'ai travaillé.",
     "page.blog.title": "Blog",

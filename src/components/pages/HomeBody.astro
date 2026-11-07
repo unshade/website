@@ -55,7 +55,7 @@ const stack = [
 ]
 ---
 
-<PageLayout title="Home" description={t("site.description")}>
+<PageLayout title={t("page.home.title")} description={t("site.description")} rawTitle>
 
   <div class="topo-field"></div>
 
@@ -69,9 +69,9 @@ const stack = [
           <p class='animated text-sm md:text-base opacity-60'>
             <span class="prompt">{t("hero.whoami")}</span>
           </p>
-          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white mt-1'>
+          <h1 class='animated text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white mt-1'>
             noé steiner<span class="cursor"></span>
-          </p>
+          </h1>
           <p class='animated text-sm md:text-base lg:text-lg opacity-75 mt-3'>
             {t("hero.role")}
           </p>
@@ -117,9 +117,9 @@ const stack = [
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-mono font-semibold text-black dark:text-white">
+            <h2 class="font-mono font-semibold text-black dark:text-white">
               {t("home.recentPosts")}
-            </p>
+            </h2>
             <a href={localizePath(lang, "/blog")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
               <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
                 {t("home.allPosts")}
@@ -140,9 +140,9 @@ const stack = [
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-mono font-semibold text-black dark:text-white">
+            <h2 class="font-mono font-semibold text-black dark:text-white">
               {t("home.recentTracks")}
-            </p>
+            </h2>
             <a href={localizePath(lang, "/music")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
               <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
                 {t("home.allTracks")}
@@ -163,9 +163,9 @@ const stack = [
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-mono font-semibold text-black dark:text-white">
+            <h2 class="font-mono font-semibold text-black dark:text-white">
               {t("home.recentProjects")}
-            </p>
+            </h2>
             <a href={localizePath(lang, "/projects")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
               <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
                 {t("home.allProjects")}
@@ -186,9 +186,9 @@ const stack = [
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-mono font-semibold text-black dark:text-white">
+            <h2 class="font-mono font-semibold text-black dark:text-white">
               {t("home.recentTrails")}
-            </p>
+            </h2>
             <a href={localizePath(lang, "/hiking")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
               <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
                 {t("home.allTrails")}
@@ -208,9 +208,9 @@ const stack = [
       <!-- Tech Stack Section -->
       <section class="animate">
         <div class="space-y-4">
-          <p class="font-mono font-semibold text-black dark:text-white">
+          <h2 class="font-mono font-semibold text-black dark:text-white">
             {t("home.builtWith")}
-          </p>
+          </h2>
           <div class="flex flex-wrap items-center gap-2 mt-5">
             {stack.map(item => (
               <StackCard
@@ -235,9 +235,9 @@ const stack = [
       <!-- Contact Section -->
       <section class="animate">
         <div>
-          <p class="font-mono font-semibold text-black dark:text-white">
+          <h2 class="font-mono font-semibold text-black dark:text-white">
             {t("home.connect")}
-          </p>
+          </h2>
           <p>
             {t("home.connectNote")}
           </p>

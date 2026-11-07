@@ -12,4 +12,4 @@ demoUrl: https://github.com/unshade/homelab
 repoUrl: https://github.com/unshade/homelab
 ---
 
-My current personal infrastructure, replacing my [old setup](/projects/infrastructure). Built using Kubernetes to run containerized applications and Terraform/OpenTofu to provision and manage everything underneath it.
+My current personal infrastructure, replacing my [old setup](/projects/infrastructure/). Built using Kubernetes to run containerized applications and Terraform/OpenTofu to provision and manage everything underneath it.

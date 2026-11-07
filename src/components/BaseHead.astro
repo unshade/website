@@ -1,21 +1,96 @@
 ---
 import { getCurrentLang } from "@i18n/ui"
+import { SITE, SOCIALS } from "@consts"
+
+export interface ArticleMeta {
+  type: "BlogPosting" | "Article"
+  headline: string
+  published: Date
+  tags: string[]
+  // Parent listing page, for the breadcrumb trail.
+  section: { name: string; url: string }
+}
 
 interface Props {
   title: string
   description: string
   image?: string
+  article?: ArticleMeta
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = "/open-graph.jpg" } = Astro.props
+const { title, description, image = "/open-graph.jpg", article } = Astro.props
+const imageURL = new URL(image, Astro.site)
 
 const lang = getCurrentLang(Astro.currentLocale)
 const unlocalizedPath = lang === "fr" ? Astro.url.pathname.replace(/^\/fr/, "") || "/" : Astro.url.pathname
 const enURL = new URL(unlocalizedPath, Astro.site)
 const frURL = new URL(unlocalizedPath === "/" ? "/fr" : `/fr${unlocalizedPath}`, Astro.site)
 const rssURL = lang === "fr" ? new URL("fr/rss.xml", Astro.site) : new URL("rss.xml", Astro.site)
+
+// Structured data (schema.org JSON-LD) so search engines know who the site
+// is about and what each article is.
+// Frontmatter dates ("Oct 10 2026") are parsed in local time, so read them
+// back with local getters - toISOString() would shift them a day in UTC+.
+const isoDate = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+const siteURL = new URL("/", Astro.site).href
+const homeURL = lang === "fr" ? new URL("/fr/", Astro.site).href : siteURL
+const isHome = unlocalizedPath === "/"
+const person = {
+  "@type": "Person",
+  "@id": `${siteURL}#person`,
+  name: SITE.AUTHOR,
+  url: siteURL,
+  jobTitle: "Software Engineer",
+  worksFor: { "@type": "Organization", name: "Infomaniak", url: "https://www.infomaniak.com" },
+  sameAs: SOCIALS.filter((s) => s.HREF.startsWith("http")).map((s) => s.HREF),
+}
+
+const jsonLd: Record<string, unknown>[] = []
+if (isHome) {
+  jsonLd.push(
+    { "@context": "https://schema.org", ...person },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${siteURL}#website`,
+      name: SITE.TITLE,
+      url: siteURL,
+      inLanguage: ["en", "fr"],
+      author: { "@id": `${siteURL}#person` },
+    },
+  )
+}
+if (article) {
+  jsonLd.push(
+    {
+      "@context": "https://schema.org",
+      "@type": article.type,
+      headline: article.headline,
+      description,
+      image: imageURL.href,
+      datePublished: isoDate(article.published),
+      inLanguage: lang,
+      keywords: article.tags.join(", "),
+      url: canonicalURL.href,
+      mainEntityOfPage: canonicalURL.href,
+      author: person,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: SITE.TITLE, item: homeURL },
+        { "@type": "ListItem", position: 2, name: article.section.name, item: article.section.url },
+        { "@type": "ListItem", position: 3, name: article.headline, item: canonicalURL.href },
+      ],
+    },
+  )
+}
+// Escape "<" so a value can never close the script tag early.
+const jsonLdHtml = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c")
 ---
 
 <!-- Global Metadata -->
@@ -39,25 +114,41 @@ const rssURL = lang === "fr" ? new URL("fr/rss.xml", Astro.site) : new URL("rss.
 <link rel="alternate" hreflang="fr" href={frURL} />
 <link rel="alternate" hreflang="x-default" href={enURL} />
 <meta property="og:locale" content={lang === "fr" ? "fr_FR" : "en_US"} />
+<meta property="og:locale:alternate" content={lang === "fr" ? "en_US" : "fr_FR"} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content={SITE.AUTHOR} />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef3f4" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f13" />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:site_name" content={SITE.TITLE} />
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+{article && <meta property="article:published_time" content={isoDate(article.published)} />}
+{article && <meta property="article:author" content={SITE.AUTHOR} />}
+{article && <meta property="article:section" content={article.section.name} />}
+{article?.tags.map((tag) => <meta property="article:tag" content={tag} />)}
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Structured data -->
+{jsonLd.map((data) => <script is:inline type="application/ld+json" set:html={jsonLdHtml(data)} />)}
 
 <!-- Sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
