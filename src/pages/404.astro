@@ -1,0 +1,29 @@
+---
+// Served by nginx (error_page 404 /404.html) for any unknown URL, so it can't
+// know the visitor's language - show both.
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { useTranslations, localizePath } from "@i18n/ui"
+
+const en = useTranslations("en")
+const fr = useTranslations("fr")
+---
+
+<PageLayout title={en("notFound.title")} description={en("notFound.description")} noindex>
+  <TopLayout>
+    <h1 class="animate page-heading">404 · {en("notFound.title")}</h1>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate space-y-8">
+      <p>
+        {en("notFound.description")}<br />
+        <a href={localizePath("en", "/")} class="underline underline-offset-2">{en("notFound.home")}</a>
+      </p>
+      <p lang="fr">
+        {fr("notFound.description")}<br />
+        <a href={localizePath("fr", "/")} class="underline underline-offset-2">{fr("notFound.home")}</a>
+      </p>
+    </div>
+  </BottomLayout>
+</PageLayout>

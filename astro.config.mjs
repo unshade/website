@@ -16,6 +16,8 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      // Search pages are noindex - keep them out of the sitemap too.
+      filter: (page) => !/\/search\/?$/.test(page),
       i18n: {
         defaultLocale: "en",
         locales: { en: "en", fr: "fr" },

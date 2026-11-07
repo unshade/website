@@ -27,6 +27,10 @@ const tags = [...new Set(items.flatMap((item) => item.data.tags))].sort((a, b) =
   a.localeCompare(b),
 )
 
+// The list only needs what the cards show. Passing whole entries would
+// serialize every article body (maps, embeds...) into this page.
+const cards = items.map((item) => ({ ...item, body: undefined, rendered: undefined }))
+
 const estimated_initial_size = 28 + items.length * 158 + (items.length - 1) * 12
 ---
 
@@ -47,7 +51,7 @@ const estimated_initial_size = 28 + items.length * 158 + (items.length - 1) * 12
       class="animate"
       style={{ minHeight: `${estimated_initial_size}px` }}
     >
-      <SearchCollection client:load entry_name={entryName} tags={tags} data={items} lang={lang} />
+      <SearchCollection client:load entry_name={entryName} tags={tags} data={cards} lang={lang} />
     </div>
   </BottomLayout>
 </PageLayout>

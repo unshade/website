@@ -17,7 +17,7 @@ Starting from Les Bossons, just outside Chamonix, up to the Cascade du Dard.
 
 Honestly not an interesting hike, nothing much to see along the way. The one thing worth the trip is the waterfall itself, quite heavy and worth the short detour. Good if you're spending a day in Chamonix and want a little hike after eating, nothing more.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -67,8 +67,8 @@ Honestly not an interesting hike, nothing much to see along the way. The one thi
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -93,6 +93,5 @@ Honestly not an interesting hike, nothing much to see along the way. The one thi
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20063621807" data-style="standard" data-from-embed="false" data-token="_NFeaTGBiXecen1VrokQI5BgjKDbC2B2AGtnbg3hiBw"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20063621807" data-style="standard" data-from-embed="false" data-token="_NFeaTGBiXecen1VrokQI5BgjKDbC2B2AGtnbg3hiBw"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

@@ -22,6 +22,25 @@
     font-style: normal;
     font-display: swap;
   }
+
+  /* Self-hosted instead of Google Fonts, so visitors' IPs never reach
+     Google. Variable fonts: one file covers weights 100-800. OFL license
+     in /fonts/JetBrainsMono-OFL.txt. */
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("/fonts/jetbrains-mono-latin-wght-italic.woff2") format("woff2");
+    font-weight: 100 800;
+    font-style: italic;
+    font-display: swap;
+  }
 }
 
 html {
@@ -110,6 +129,29 @@ article blockquote {
 
 .page-heading {
   @apply font-mono font-semibold text-black dark:text-white;
+}
+
+/* Click-to-load placeholders for third-party embeds (public/js/consent.js). */
+.consent-embed {
+  @apply flex flex-col justify-center gap-3 p-4 rounded-lg text-sm;
+  @apply border border-dashed border-black/20 dark:border-white/20 bg-black/[0.02] dark:bg-white/[0.03];
+}
+
+.consent-embed-notice {
+  @apply m-0 text-black/70 dark:text-white/70;
+}
+
+.consent-embed-actions {
+  @apply flex flex-wrap gap-2;
+}
+
+.consent-btn {
+  @apply px-3 py-1.5 rounded font-mono text-xs border border-black/25 dark:border-white/25;
+  @apply text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/15 transition-all duration-300 ease-in-out;
+}
+
+.consent-btn-primary {
+  @apply bg-black/5 dark:bg-white/10;
 }
 
 .blend {

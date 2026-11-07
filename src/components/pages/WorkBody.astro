@@ -70,14 +70,14 @@ const sortedDegrees = degrees.sort((a, b) => toTime(b.data.dateStart) - toTime(a
 
 <PageLayout title={t("page.work.title")} description={t("page.work.description")}>
   <TopLayout>
-    <div class="animate page-heading">
+    <h1 class="animate page-heading">
       {t("page.work.title")}
-    </div>
+    </h1>
   </TopLayout>
   <BottomLayout>
-    <p class="animate font-mono font-semibold text-black dark:text-white">
+    <h2 class="animate font-mono font-semibold text-black dark:text-white">
       {t("work.section.experience")}
-    </p>
+    </h2>
     <ul>
       {
         companies.map(({ company, roles }) => (
@@ -107,9 +107,9 @@ const sortedDegrees = degrees.sort((a, b) => toTime(b.data.dateStart) - toTime(a
       }
     </ul>
 
-    <p class="animate font-mono font-semibold text-black dark:text-white mt-12">
+    <h2 class="animate font-mono font-semibold text-black dark:text-white mt-12">
       {t("work.section.education")}
-    </p>
+    </h2>
     <ul>
       {
         sortedDegrees.map((degree) => (

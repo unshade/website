@@ -105,7 +105,7 @@ export const ui = {
     "home.connectNote": "Reach out to me via email or on social media.",
 
     "footer.allSystemsNormal": "all systems normal",
-    "footer.terms": "Terms",
+    "footer.notice": "Legal notice",
     "footer.privacy": "Privacy",
     "footer.rights": "All rights reserved",
     "footer.backToTop": "Back to top",
@@ -148,6 +148,10 @@ export const ui = {
     "work.date.present": "Present",
 
     "legal.lastUpdated": "Last updated:",
+    "legal.description": "{title} for nstnr.com, the personal website of Noé Steiner.",
+    "notFound.title": "Page not found",
+    "notFound.description": "This page does not exist or has moved.",
+    "notFound.home": "Back to the homepage",
 
     "lang.switch": "FR",
   },
@@ -211,7 +215,7 @@ export const ui = {
     "home.connectNote": "Contactez-moi par e-mail ou sur les réseaux sociaux.",
 
     "footer.allSystemsNormal": "tous les systèmes sont normaux",
-    "footer.terms": "Conditions",
+    "footer.notice": "Mentions légales",
     "footer.privacy": "Confidentialité",
     "footer.rights": "Tous droits réservés",
     "footer.backToTop": "Retour en haut",
@@ -254,6 +258,10 @@ export const ui = {
     "work.date.present": "Aujourd'hui",
 
     "legal.lastUpdated": "Dernière mise à jour :",
+    "legal.description": "{title} de nstnr.com, le site personnel de Noé Steiner.",
+    "notFound.title": "Page introuvable",
+    "notFound.description": "Cette page n'existe pas ou a été déplacée.",
+    "notFound.home": "Retour à l'accueil",
 
     "lang.switch": "EN",
   },

@@ -1,4 +1,4 @@
-import { formatDate, truncateText } from "@lib/utils"
+import { formatDate, isoDate, truncateText } from "@lib/utils"
 import { localizePath, unlocalizeSlug, useTranslations, type Lang } from "@i18n/ui"
 import type { CollectionEntry } from "astro:content"
 
@@ -37,7 +37,7 @@ export default function ArrowCard({ entry, pill, lang }: Props) {
             </div>
           }
           <div class="text-sm uppercase font-mono text-black/50 dark:text-white/50">
-            {formatDate(entry.data.date, lang)}
+            <time datetime={isoDate(entry.data.date)}>{formatDate(entry.data.date, lang)}</time>
           </div>
           {isHiking && entry.data.elevation &&
             <div class="text-xs uppercase font-mono text-moss-600 dark:text-moss-400">

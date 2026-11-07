@@ -13,9 +13,10 @@ interface Props {
   // Use the title as-is instead of appending " | <site name>" (homepage).
   rawTitle?: boolean
   article?: ArticleMeta
+  noindex?: boolean
 }
 
-const { title, description, rawTitle = false, article } = Astro.props
+const { title, description, rawTitle = false, article, noindex = false } = Astro.props
 
 const lang = getCurrentLang(Astro.currentLocale)
 ---
@@ -27,6 +28,7 @@ const lang = getCurrentLang(Astro.currentLocale)
       title={rawTitle ? title : `${title} | ${SITE.TITLE}`}
       description={description}
       article={article}
+      noindex={noindex}
     />
   </head>
   <body>

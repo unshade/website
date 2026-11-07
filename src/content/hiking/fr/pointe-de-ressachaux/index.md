@@ -18,7 +18,7 @@ Une belle rando, mais très verticale : 1 269 m de dénivelé positif. Le sentie
 
 Le sommet en vaut la peine. On voit Avoriaz et Morzine en contrebas, entourés par les montagnes, et la vue sur le Mont Blanc est top niveau. En chemin, Le Creux est un endroit très intéressant à voir.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -68,8 +68,8 @@ Le sommet en vaut la peine. On voit Avoriaz et Morzine en contrebas, entourés p
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -94,6 +94,5 @@ Le sommet en vaut la peine. On voit Avoriaz et Morzine en contrebas, entourés p
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20242492796" data-style="standard" data-from-embed="false" data-token="Tx7ydI4DtU3vGCOHvxhKCYD1kHtKXf9ww-7qFlfMAlE"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20242492796" data-style="standard" data-from-embed="false" data-token="Tx7ydI4DtU3vGCOHvxhKCYD1kHtKXf9ww-7qFlfMAlE"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

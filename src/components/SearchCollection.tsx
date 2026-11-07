@@ -27,7 +27,9 @@ export default function SearchCollection({ entry_name, data, tags, lang }: Props
 
   const [query, setQuery] = createSignal("");
   const [filter, setFilter] = createSignal(new Set<string>())
-  const [collection, setCollection] = createSignal<CollectionEntry<'blog'>[]>([])
+  // Start with the full list so it is rendered into the static HTML, not
+  // only after hydration - crawlers and no-JS visitors see every link.
+  const [collection, setCollection] = createSignal<CollectionEntry<'blog'>[]>(coerced)
   const [descending, setDescending] = createSignal(false);
 
   const fuse = new Fuse(coerced, {

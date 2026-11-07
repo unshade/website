@@ -18,7 +18,7 @@ A nice hike, but very vertical: 1,269 m of climbing. The path has no turns to sp
 
 The top is worth it. You look down on Avoriaz and Morzine, with the surrounding mountains all around, and the view of Mont Blanc is top tier. Along the way, Le Creux is a very interesting place to see.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -68,8 +68,8 @@ The top is worth it. You look down on Avoriaz and Morzine, with the surrounding 
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -94,6 +94,5 @@ The top is worth it. You look down on Avoriaz and Morzine, with the surrounding 
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20242492796" data-style="standard" data-from-embed="false" data-token="Tx7ydI4DtU3vGCOHvxhKCYD1kHtKXf9ww-7qFlfMAlE"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20242492796" data-style="standard" data-from-embed="false" data-token="Tx7ydI4DtU3vGCOHvxhKCYD1kHtKXf9ww-7qFlfMAlE"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

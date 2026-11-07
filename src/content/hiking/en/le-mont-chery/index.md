@@ -1,6 +1,6 @@
 ---
 title: "Le Mont Chéry"
-summary: "A hike right next to the Les Gets ski resort, in the Chablais."
+summary: "An easy hike above Les Gets from the Col de l'Encrenaz, with Mont Blanc, the Chablais and the Morzine and Les Gets slopes in view."
 date: "Aug 29 2026"
 draft: false
 tags:
@@ -17,7 +17,7 @@ Right next to the Les Gets ski resort: the same slopes you'd ride down in winter
 
 The one downside: the main path just follows a ski slope, which isn't the most interesting way up. There are other paths worth exploring instead. Park at the Col de l'Encrenaz to start.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -67,8 +67,8 @@ The one downside: the main path just follows a ski slope, which isn't the most i
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -93,6 +93,5 @@ The one downside: the main path just follows a ski slope, which isn't the most i
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19952496254" data-style="standard" data-from-embed="false" data-token="Mqr-sukNkeRqJ3tI-ffZ7aA7lQ-DkGwjaaO2qVxnkRY"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19952496254" data-style="standard" data-from-embed="false" data-token="Mqr-sukNkeRqJ3tI-ffZ7aA7lQ-DkGwjaaO2qVxnkRY"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

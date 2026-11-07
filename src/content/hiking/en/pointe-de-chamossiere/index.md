@@ -1,6 +1,6 @@
 ---
 title: "Pointe de Chamossière"
-summary: "A hike in the Chablais, in the Portes du Soleil."
+summary: "An easy, well-marked hike from Lac de Joux Plane in the Portes du Soleil, with Mont Blanc and the Pointe des Avoudrues in view at the top."
 date: "Aug 22 2026"
 draft: false
 tags:
@@ -17,7 +17,7 @@ From the top, the panorama opens up fully: Mont Blanc on the skyline, Samoëns a
 
 A very easy, well-marked hike. Anyone can do this one, no technical difficulty at all. Park at the Lac de Joux Plane and start from there.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -67,8 +67,8 @@ A very easy, well-marked hike. Anyone can do this one, no technical difficulty a
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -93,6 +93,5 @@ A very easy, well-marked hike. Anyone can do this one, no technical difficulty a
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Also tracked on Strava:</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19946691739" data-style="standard" data-from-embed="false" data-token="QKN4NWBP6xx_ei6DEUAq5sWVcgZ305_pf3Hx5bjlgGQ"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19946691739" data-style="standard" data-from-embed="false" data-token="QKN4NWBP6xx_ei6DEUAq5sWVcgZ305_pf3Hx5bjlgGQ"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

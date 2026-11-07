@@ -1,6 +1,6 @@
 ---
 title: "Terraform Provider Infomaniak"
-summary: "Provider Terraform pour Infomaniak"
+summary: "Un provider Terraform écrit en Go pour gérer en code les clusters Kubernetes, bases de données et autres services cloud d'Infomaniak."
 date: "Mar 01 2025"
 draft: false
 tags:

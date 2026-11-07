@@ -1,6 +1,6 @@
 ---
 title: "Canada"
-summary: "ADA to ASM ARM32 UAL compiler"
+summary: "A Java compiler, built with no external libraries, that turns a subset of ADA into ARM32 assembly (UAL syntax)."
 date: "Sep 01 2024"
 draft: false
 tags:

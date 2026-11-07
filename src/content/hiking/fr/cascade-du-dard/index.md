@@ -17,7 +17,7 @@ Départ des Bossons, juste à côté de Chamonix, jusqu'à la Cascade du Dard.
 
 Honnêtement, pas une rando intéressante, pas grand-chose à voir sur le chemin. Le seul truc qui vaut le coup, c'est la cascade elle-même, assez impressionnante et qui justifie le petit détour. Sympa si vous passez une journée à Chamonix et voulez faire une petite rando après manger, rien de plus.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -67,8 +67,8 @@ Honnêtement, pas une rando intéressante, pas grand-chose à voir sur le chemin
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -93,6 +93,5 @@ Honnêtement, pas une rando intéressante, pas grand-chose à voir sur le chemin
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20063621807" data-style="standard" data-from-embed="false" data-token="_NFeaTGBiXecen1VrokQI5BgjKDbC2B2AGtnbg3hiBw"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="20063621807" data-style="standard" data-from-embed="false" data-token="_NFeaTGBiXecen1VrokQI5BgjKDbC2B2AGtnbg3hiBw"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

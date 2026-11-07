@@ -1,6 +1,6 @@
 ---
 title: "Le Mont Chéry"
-summary: "Une rando juste à côté de la station des Gets, dans le Chablais."
+summary: "Une rando facile au-dessus des Gets depuis le col de l'Encrenaz, avec vue sur le Mont Blanc, le Chablais et les pistes de Morzine et des Gets."
 date: "Aug 29 2026"
 draft: false
 tags:
@@ -17,7 +17,7 @@ Juste à côté de la station des Gets : les mêmes pistes qu'on descend en hive
 
 Le seul bémol : le chemin principal longe une piste de ski, ce qui n'est pas le tracé le plus intéressant pour monter. Il existe d'autres itinéraires qui valent le détour. On se gare au Col de l'Encrenaz pour partir.
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <style>
   #hike-map { height: 420px; }
   /* Match Leaflet's default chrome to the site's own button/border style
@@ -67,8 +67,8 @@ Le seul bémol : le chemin principal longe une piste de ski, ce qui n'est pas le
   <div id="hike-map" class="w-full rounded-lg overflow-hidden"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gpx@2.2.0/gpx.js"></script>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/leaflet/leaflet-gpx.js"></script>
 <script>
   (function () {
     var map = L.map("hike-map", { scrollWheelZoom: false, zoomControl: false });
@@ -93,6 +93,5 @@ Le seul bémol : le chemin principal longe une piste de ski, ce qui n'est pas le
 
 <p class="text-sm text-black/50 dark:text-white/50 mt-8 mb-2">Également suivi sur Strava :</p>
 <div class="max-w-xs p-1.5 rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03]">
-  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19952496254" data-style="standard" data-from-embed="false" data-token="Mqr-sukNkeRqJ3tI-ffZ7aA7lQ-DkGwjaaO2qVxnkRY"></div>
-  <script src="https://strava-embeds.com/embed.js"></script>
+  <div class="consent-embed" data-provider="Strava"><template><div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="19952496254" data-style="standard" data-from-embed="false" data-token="Mqr-sukNkeRqJ3tI-ffZ7aA7lQ-DkGwjaaO2qVxnkRY"></div><script src="https://strava-embeds.com/embed.js"></script></template></div>
 </div>

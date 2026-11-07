@@ -1,6 +1,7 @@
 ---
 import { getCurrentLang } from "@i18n/ui"
 import { SITE, SOCIALS } from "@consts"
+import { isoDate } from "@lib/utils"
 
 export interface ArticleMeta {
   type: "BlogPosting" | "Article"
@@ -16,11 +17,13 @@ interface Props {
   description: string
   image?: string
   article?: ArticleMeta
+  // Keep the page out of search results (search, 404).
+  noindex?: boolean
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = "/open-graph.jpg", article } = Astro.props
+const { title, description, image = "/open-graph.jpg", article, noindex = false } = Astro.props
 const imageURL = new URL(image, Astro.site)
 
 const lang = getCurrentLang(Astro.currentLocale)
@@ -31,10 +34,6 @@ const rssURL = lang === "fr" ? new URL("fr/rss.xml", Astro.site) : new URL("rss.
 
 // Structured data (schema.org JSON-LD) so search engines know who the site
 // is about and what each article is.
-// Frontmatter dates ("Oct 10 2026") are parsed in local time, so read them
-// back with local getters - toISOString() would shift them a day in UTC+.
-const isoDate = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
 const siteURL = new URL("/", Astro.site).href
 const homeURL = lang === "fr" ? new URL("/fr/", Astro.site).href : siteURL
 const isHome = unlocalizedPath === "/"
@@ -102,17 +101,15 @@ const jsonLdHtml = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003
 <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" />
+<link rel="preload" href="/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, follow" />}
 
-<!-- Language alternates -->
-<link rel="alternate" hreflang="en" href={enURL} />
-<link rel="alternate" hreflang="fr" href={frURL} />
-<link rel="alternate" hreflang="x-default" href={enURL} />
+<!-- Canonical URL + language alternates (pointless on noindex pages) -->
+{!noindex && <link rel="canonical" href={canonicalURL} />}
+{!noindex && <link rel="alternate" hreflang="en" href={enURL} />}
+{!noindex && <link rel="alternate" hreflang="fr" href={frURL} />}
+{!noindex && <link rel="alternate" hreflang="x-default" href={enURL} />}
 <meta property="og:locale" content={lang === "fr" ? "fr_FR" : "en_US"} />
 <meta property="og:locale:alternate" content={lang === "fr" ? "en_US" : "fr_FR"} />
 
@@ -161,8 +158,10 @@ const jsonLdHtml = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003
 <script is:inline src="/js/scroll.js"></script>
 <script is:inline src="/js/animate.js"></script>
 <script defer is:inline src="/js/copy.js"></script>
+<script defer is:inline src="/js/consent.js"></script>
 
-<!-- Analytics -->
+<!-- Analytics: self-hosted Umami, no cookies. Respects Do Not Track, and the
+     opt-out on the privacy page (localStorage "umami.disabled"). -->
 {import.meta.env.PROD && (
   <script
     is:inline
@@ -170,6 +169,7 @@ const jsonLdHtml = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003
     src="https://stats.nstnr.com/nstnr.js"
     data-website-id="36c0140f-0556-4386-b9ee-b1c74d199b2e"
     data-domains="nstnr.com"
+    data-do-not-track="true"
   ></script>
 )}
 

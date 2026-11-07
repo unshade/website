@@ -13,6 +13,14 @@ export function formatDate(date: Date, lang: "en" | "fr" = "en") {
   }).format(date)
 }
 
+/** "2026-10-10" for <time datetime> and schema.org. Frontmatter dates
+ * ("Oct 10 2026") are parsed in local time, so read them back with local
+ * getters - toISOString() would shift them a day east of UTC. */
+export function isoDate(date: Date) {
+  const pad = (n: number) => String(n).padStart(2, "0")
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+}
+
 export function readingTime(html: string, lang: "en" | "fr" = "en") {
   const textOnly = html.replace(/<[^>]+>/g, "")
   const wordCount = textOnly.split(/\s+/).length

@@ -17,11 +17,11 @@ const trails = (await getLocalizedCollection("hiking", lang)).filter((post) => !
 const data = [...posts, ...projects, ...tracks, ...trails]
 ---
 
-<PageLayout title={t("page.search.title")} description={t("page.search.description")}>
+<PageLayout title={t("page.search.title")} description={t("page.search.description")} noindex>
   <TopLayout>
-    <div class="animate page-heading">
+    <h1 class="animate page-heading">
       {t("page.search.title")}
-    </div>
+    </h1>
   </TopLayout>
   <BottomLayout>
     <div class="animate">
